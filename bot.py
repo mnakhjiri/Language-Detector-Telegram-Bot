@@ -76,6 +76,7 @@ def handle_message(message):
 @bot.message_handler(regexp="زبان درست پیش بینی شد")
 def handle_message(message):
     if message.chat.type == "private":
+        lang.language_learning(reply_mode[str(message.chat.id) + "langtext"] , reply_mode[str(message.chat.id) + "langtitle"])
         menu(message)
 
 
@@ -105,6 +106,7 @@ def message_handler(message):
     if message.chat.type == "private":
         lang_title = lang.lang_predict(message.text)
         reply_mode[str(message.chat.id) + "langtext"] = message.text
+        reply_mode[str(message.chat.id) + "langtitle"] = lang_title
         response_text = "آیا این زبان مورد نظر شما است؟\n" + lang_title
         bot.send_message(message.chat.id, response_text)
         lang_menu(message)

@@ -31,11 +31,15 @@ def lang_process(text, lang):
 def language_learning(text, lang_title):
     global lang_text, lang_words, unique_words, number_of_words
     words = text.split()
+    word_result = []
+    for word in words:
+        word_result.append(word.strip())
+    words = word_result
     if lang_title not in lang_text.keys():
         lang_text[lang_title] = text
         lang_words[lang_title] = words
         for word in words:
-            unique_words.add(word)
+            unique_words.add(word.strip())
         number_of_words += len(words)
     else:
         lang_text[lang_title] += " " + text
@@ -61,13 +65,14 @@ def get_obj_from_files():
         lang_text[lang[:-4]] = file.read()
         file.close()
     for lang_title, text in lang_text.items():
-        words = text.split(" ")
+        words = text.split()
         word_result = []
         for word in words:
             try:
                 word = word.split("|")[0]
             except:
                 pass
+            word = word.strip()
             unique_words.add(word)
             word_result.append(word)
         number_of_words += len(word_result)
